@@ -43,18 +43,17 @@ class Player:
         dominated_strategies = [] # [(a, b)] a dominates b
         for s_i, s_j in list(combinations(self.strategy, 2)):
             i_minus_j = []
-            for row in self.strategy_set_excluded.iterrows():
-                s_minus_i = row[1] # row is a tuple, row[1] is a pd.Series
+            for _, s_minus_i in self.strategy_set_excluded.iterrows():
                 u_s_i = utility(s_i, s_minus_i, self.id, utilities)
                 u_s_j = utility(s_j, s_minus_i, self.id, utilities)
                 
                 i_minus_j.append(u_s_i - u_s_j)
             
             if np.all(np.array(i_minus_j) > 0):
-                print(f"[Player:{self.id}] Strategy: {s_i} dominates {s_j}")
+                print(f"\t[Player:{self.id}] Strategy: {s_i} dominates {s_j}")
                 dominated_strategies.append((s_i, s_j))
             elif np.all(np.array(i_minus_j) < 0):
-                print(f"[Player:{self.id}] Strategy: {s_j} dominates {s_i}")
+                print(f"\t[Player:{self.id}] Strategy: {s_j} dominates {s_i}")
                 dominated_strategies.append((s_j, s_i))
 
         return dominated_strategies

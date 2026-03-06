@@ -10,7 +10,8 @@ class Game:
               Strategies for each player (Array of strings without spaces):
                 ['up', 'down', 'left', 'right']
               Provide Payoffs for all strategy_profiles(s1, s2, ... sn):
-                n space separated real numbers""")
+                n space separated real numbers
+            """)
         self.players = []
         self.strategy_sets = pd.DataFrame({})
         self.utilities = pd.DataFrame({})
@@ -54,17 +55,8 @@ class Game:
             # TODO: We dont want to update beliefs at each iteration of deletions
 
     def remove_strategy(self, strat, player_id):
-        # Remove the rows where the player plays strat
         self.utilities = self.utilities[~(self.utilities[player_id] == strat)]
 
     def view(self):
         print(f"{len(self.players)} Players")
         print(self.utilities)
-
-def main():
-    game = Game()
-    game.load("./csv/game1.csv") # or game.setup()
-    game.view()
-
-if __name__ == "__main__":
-    main()
